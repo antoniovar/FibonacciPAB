@@ -2,25 +2,36 @@ package org.factorialYfibonacci;
 
 public class Fibonacci {
     public int compute(int n, int k){ //siendo n número de meses y k el número de parejas de hijos que tiene cada pareja.
-        int totalConejos;
-        if (n < 1 || k<1 ) {
+        int totalParejaConejos;
+        // Los meses no pueden ser 0 ni negativo
+        if (n < 1) {
             throw new RuntimeException("Número de meses no valido:" + n);
         }
+        // EL número de hijos no puede ser negativo
+        else if (k <0){
+            throw new RuntimeException("Número de hijos no valido:" + k);
+        }
+        // Si el número de hijos es 0 siempre tendremos la pareja con la que se empieza el problema
+        else if (k == 0){
+            return 1;
+        }
+        // Si el mes es 1 o 2 siempre tendremos una única pareja que será la de inicio
         else if (n == 1 || n==2){
             return 1;
         }
+        //Para el resto de casos
         else{
-            int nBBactual=0;
-            int nBBmesPasado=0;
-            int nAdulto=0;
-            nBBmesPasado=1;
+            int nParejasBBactual=0;
+            int nParejasBBmesPasado=0;
+            int nParejasAdulto=0;
+            nParejasBBmesPasado=1;
             for(int i=1 ; i<n ; i++){
-                nBBactual=nAdulto*3;
-                nAdulto=nAdulto+nBBmesPasado;
-                nBBmesPasado=nBBactual;
+                nParejasBBactual=nParejasAdulto*k;
+                nParejasAdulto=nParejasAdulto+nParejasBBmesPasado;
+                nParejasBBmesPasado=nParejasBBactual;
             }
-            totalConejos = nBBactual + nAdulto;
-            return totalConejos;
+            totalParejaConejos = nParejasBBactual + nParejasAdulto;
+            return totalParejaConejos;
         }
     }
 }
